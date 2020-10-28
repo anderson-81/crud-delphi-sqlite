@@ -8,8 +8,8 @@ uses
 
 type
   TFrmSplash = class(TForm)
-    Image1: TImage;
-    Timer1: TTimer;
+    image: TImage;
+    timer: TTimer;
     procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
@@ -33,7 +33,7 @@ begin
    try
       FrmLogin := TFrmLogin.create ( Application );
       self.Visible := false;
-      Timer1.Destroy;
+      Timer.Destroy;
       FrmLogin.ShowModal;
    finally
       FrmLogin.Release;

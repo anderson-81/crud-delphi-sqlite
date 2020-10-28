@@ -1,6 +1,6 @@
 object FrmRegistration: TFrmRegistration
-  Left = 482
-  Top = 100
+  Left = 342
+  Top = 303
   BorderStyle = bsToolWindow
   Caption = 'Registration System - Registration'
   ClientHeight = 357
@@ -15,14 +15,14 @@ object FrmRegistration: TFrmRegistration
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 24
-  object Label1: TLabel
+  object lblTitle: TLabel
     Left = 16
     Top = 8
     Width = 98
     Height = 24
     Caption = 'Registration'
   end
-  object Label2: TLabel
+  object lblName: TLabel
     Left = 16
     Top = 40
     Width = 52
@@ -35,7 +35,7 @@ object FrmRegistration: TFrmRegistration
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label3: TLabel
+  object lblEmail: TLabel
     Left = 16
     Top = 104
     Width = 50
@@ -48,7 +48,7 @@ object FrmRegistration: TFrmRegistration
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label4: TLabel
+  object lblSalary: TLabel
     Left = 16
     Top = 168
     Width = 56
@@ -61,12 +61,12 @@ object FrmRegistration: TFrmRegistration
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label5: TLabel
+  object lblBirthday: TLabel
     Left = 16
     Top = 232
-    Width = 112
+    Width = 72
     Height = 20
-    Caption = 'Date Of Birth:'
+    Caption = 'Birthday:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -74,12 +74,12 @@ object FrmRegistration: TFrmRegistration
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label6: TLabel
+  object lblGender: TLabel
     Left = 256
     Top = 232
-    Width = 56
+    Width = 66
     Height = 20
-    Caption = 'Genre:'
+    Caption = 'Gender:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -103,16 +103,7 @@ object FrmRegistration: TFrmRegistration
     TabOrder = 1
     OnExit = txtEmailExit
   end
-  object txtSalary: TEdit
-    Tag = 2
-    Left = 16
-    Top = 192
-    Width = 416
-    Height = 32
-    TabOrder = 2
-    OnChange = txtSalaryChange
-  end
-  object dtDateBirth: TDateTimePicker
+  object dtBirthday: TDateTimePicker
     Tag = 3
     Left = 16
     Top = 256
@@ -120,10 +111,10 @@ object FrmRegistration: TFrmRegistration
     Height = 32
     Date = 42572.104147546300000000
     Time = 42572.104147546300000000
-    TabOrder = 3
-    OnExit = dtDateBirthExit
+    TabOrder = 2
+    OnExit = dtBirthdayExit
   end
-  object cmbGenre: TComboBox
+  object cmbGender: TComboBox
     Tag = 4
     Left = 256
     Top = 256
@@ -133,7 +124,7 @@ object FrmRegistration: TFrmRegistration
     Style = csDropDownList
     ItemHeight = 24
     ItemIndex = 0
-    TabOrder = 4
+    TabOrder = 3
     Text = 'Male'
     Items.Strings = (
       'Male'
@@ -152,7 +143,7 @@ object FrmRegistration: TFrmRegistration
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnSearchClick
   end
   object btnEdit: TButton
@@ -168,7 +159,7 @@ object FrmRegistration: TFrmRegistration
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClick = btnEditClick
   end
   object btnDelete: TButton
@@ -184,7 +175,7 @@ object FrmRegistration: TFrmRegistration
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     OnClick = btnDeleteClick
   end
   object btnInsert: TButton
@@ -200,16 +191,23 @@ object FrmRegistration: TFrmRegistration
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
     OnClick = btnInsertClick
   end
-  object Button1: TButton
+  object btnClean: TButton
     Left = 360
     Top = 8
     Width = 75
     Height = 25
-    Caption = 'Clear'
+    Caption = 'Clean'
+    TabOrder = 8
+    OnClick = btnCleanClick
+  end
+  object currSalary: TCurrencyEdit
+    Left = 16
+    Top = 192
+    Width = 416
+    Height = 32
     TabOrder = 9
-    OnClick = Button1Click
   end
 end

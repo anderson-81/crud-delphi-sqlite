@@ -15,21 +15,21 @@ object FrmLogin: TFrmLogin
   Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 24
-  object Label1: TLabel
+  object lblUsername: TLabel
     Left = 16
     Top = 16
     Width = 52
     Height = 24
-    Caption = 'Login:'
+    Caption = 'Username:'
   end
-  object Label2: TLabel
+  object lblPassword: TLabel
     Left = 16
     Top = 80
     Width = 87
     Height = 24
     Caption = 'Password:'
   end
-  object txtLogin: TEdit
+  object txtUsername: TEdit
     Left = 16
     Top = 40
     Width = 300
@@ -37,7 +37,7 @@ object FrmLogin: TFrmLogin
     TabOrder = 0
     Text = 'admin'
   end
-  object txtPass: TEdit
+  object txtPassword: TEdit
     Left = 16
     Top = 104
     Width = 300

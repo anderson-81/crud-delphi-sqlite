@@ -12,30 +12,25 @@ type
   TFrmSearch = class(TForm)
     txtDataSearch: TEdit;
     rdForName: TRadioButton;
-    rdForCode: TRadioButton;
-    Label1: TLabel;
+    rdForID: TRadioButton;
+    lblData: TLabel;
     btnSearch: TButton;
     DBPF: TDBGrid;
-    procedure txtDataSearchChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-   
-    procedure btnSearchClick(Sender: TObject);
-    procedure rdForCodeClick(Sender: TObject);
+    procedure txtDataSearchChange(Sender: TObject);
     procedure rdForNameClick(Sender: TObject);
+    procedure btnSearchClick(Sender: TObject);
     procedure DBPFDblClick(Sender: TObject);
-    //procedure btnSearchClick(Sender: TObject);
+    procedure rdForIDClick(Sender: TObject);
   private
     DM : TDM;
     { Private declarations }
     procedure ClearSearch;
-    procedure Buscar_PessoaFisica_PorCodigo(codigo:integer);
-    procedure Buscar_PessoaFisica_PorNome(nome:string);
-
+    procedure Get_PhysicalPerson_By_ID(id:integer);
+    procedure Get_PhysicalPerson_By_Name(name:string);
   public
     frmReg: TFrmRegistration;
     { Public declarations }
-
-    
   end;
 
 var
@@ -61,7 +56,7 @@ begin
     if(txtDataSearch.Text <> '') then
     begin
       self.btnSearch.Enabled := true;
-      if(self.rdForCode.Checked) then
+      if(self.rdForID.Checked) then
       begin
          try
              StrToInt(self.txtDataSearch.text);
@@ -132,13 +127,13 @@ begin
 end;
 }
 
-procedure TFrmSearch.Buscar_PessoaFisica_PorCodigo(codigo:integer);
+procedure TFrmSearch.Get_PhysicalPerson_By_ID(id:integer);
 begin
    DM := TDM.Create(NIL);
    try
       DM.ZQuery.SQL.Clear;
-      DM.ZQuery.SQL.Add('SELECT * FROM PESSOA INNER JOIN PESSOAFISICA ON PESSOA.CODIGO = PESSOAFISICA.PESSOA_CODIGO WHERE PESSOA.CODIGO = :CODIGO');
-      DM.ZQuery.ParamByName('CODIGO').AsInteger := codigo;
+      DM.ZQuery.SQL.Add('SELECT * FROM PERSON INNER JOIN PHYSICALPERSON ON PERSON.ID = PHYSICALPERSON.PERSON_ID WHERE PERSON.ID = :ID');
+      DM.ZQuery.ParamByName('ID').AsInteger := id;
       DM.ZQuery.Open;
       if(DM.ZQuery.RecordCount > 0) then
       begin
@@ -155,13 +150,13 @@ begin
 end;
 
 
-procedure TFrmSearch.Buscar_PessoaFisica_PorNome(nome:string);
+procedure TFrmSearch.Get_PhysicalPerson_By_Name(name:string);
 begin
    DM := TDM.Create(NIL);
    try
       DM.ZQuery.SQL.Clear;
-      DM.ZQuery.SQL.Add('SELECT * FROM PESSOA INNER JOIN PESSOAFISICA ON PESSOA.CODIGO = PESSOAFISICA.PESSOA_CODIGO WHERE PESSOA.NOME LIKE :NOME');
-      DM.ZQuery.ParamByName('NOME').AsString := nome + '%';
+      DM.ZQuery.SQL.Add('SELECT * FROM PERSON INNER JOIN PHYSICALPERSON ON PERSON.ID = PHYSICALPERSON.PERSON_ID WHERE PERSON.NAME LIKE :NAME');
+      DM.ZQuery.ParamByName('NAME').AsString := name + '%';
       DM.ZQuery.Open;
       if(DM.ZQuery.RecordCount > 0) then
       begin
@@ -179,22 +174,15 @@ end;
 
 procedure TFrmSearch.btnSearchClick(Sender: TObject);
 begin
-    if (self.rdForCode.Checked) then
+    if (self.rdForID.Checked) then
     begin
        if (self.txtDataSearch.Text <> '') then
-          self.Buscar_PessoaFisica_PorCodigo(StrToInt(self.txtDataSearch.Text))
+          self.Get_PhysicalPerson_By_ID(StrToInt(self.txtDataSearch.Text))
        else
-          Application.MessageBox('Required field for search by code is empty.', 'Atention', MB_OK+MB_ICONWARNING);
+          Application.MessageBox('Required field for search by id is empty.', 'Atention', MB_OK+MB_ICONWARNING);
     end
     else
-       self.Buscar_PessoaFisica_PorNome(self.txtDataSearch.Text);
-end;
-
-procedure TFrmSearch.rdForCodeClick(Sender: TObject);
-begin
-   self.DBPF.Visible := false;
-   self.DBPF.DataSource := NIL;
-   self.txtDataSearch.text := '';
+       self.Get_PhysicalPerson_By_Name(self.txtDataSearch.Text);
 end;
 
 procedure TFrmSearch.rdForNameClick(Sender: TObject);
@@ -231,7 +219,11 @@ begin
     end;
 end;
 
-
-
+procedure TFrmSearch.rdForIDClick(Sender: TObject);
+begin
+   self.DBPF.Visible := false;
+   self.DBPF.DataSource := NIL;
+   self.txtDataSearch.text := '';
+end;
 
 end.

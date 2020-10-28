@@ -4,48 +4,45 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, DateUtils, Cadastro;
+  Dialogs, StdCtrls, ComCtrls, DateUtils, Facade, Mask, rxToolEdit,
+  rxCurrEdit;
 
 type
   TFrmRegistration = class(TForm)
-    Label1: TLabel;
-    Label2: TLabel;
+    lblTitle: TLabel;
+    lblName: TLabel;
+    lblEmail: TLabel;
+    lblSalary: TLabel;
+    lblBirthday: TLabel;
+    lblGender: TLabel;
     txtName: TEdit;
-    Label3: TLabel;
     txtEmail: TEdit;
-    Label4: TLabel;
-    txtSalary: TEdit;
-    Label5: TLabel;
-    Label6: TLabel;
-    dtDateBirth: TDateTimePicker;
-    cmbGenre: TComboBox;
-    btnSearch: TButton;
-    btnEdit: TButton;
-    btnDelete: TButton;
+    dtBirthday: TDateTimePicker;
+    cmbGender: TComboBox;
     btnInsert: TButton;
-    Button1: TButton;
-    procedure txtSalaryChange(Sender: TObject);
+    btnSearch: TButton;
+    btnDelete: TButton;
+    btnEdit: TButton;
+    btnClean: TButton;
+    currSalary: TCurrencyEdit;
     procedure FormCreate(Sender: TObject);
     procedure txtEmailExit(Sender: TObject);
-    procedure dtDateBirthExit(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure dtBirthdayExit(Sender: TObject);
     procedure btnInsertClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnSearchClick(Sender: TObject);
+    procedure btnCleanClick(Sender: TObject);
   private
     { Private declarations }
-    //formSearch : TFrmSearch;
-    dateBirth : TDateTime;
-    code : integer;
+    birthday : TDateTime;
+    id : integer;
     function ValidateEmail(const s: string): Boolean;
     procedure ClearFieldsInsert;
     function FieldTestEmpty:integer;
-
-
   public
     { Public declarations }
-    procedure PreparedRegisterForEdition(code:integer; name:string; email:string; salary:currency; dateBirth:TDateTime; genre:String);
+    procedure PreparedRegisterForEdition(id:integer; name:string; email:string; salary:currency; birthday:TDateTime; gender:String);
   end;
 
 var
@@ -56,18 +53,6 @@ implementation
 uses FSearch;
 
 {$R *.dfm}
-
-procedure TFrmRegistration.txtSalaryChange(Sender: TObject);
-begin
-    if(self.txtSalary.Text <> '') then
-    begin
-        try
-            StrToCurr(self.txtSalary.Text);
-        except
-            self.txtSalary.Text := '';
-        end;
-    end;
-end;
 
 //Source Code: http://www.swissdelphicenter.ch/en/showcode.php?id=249
 
@@ -98,7 +83,7 @@ end;
 
 procedure TFrmRegistration.FormCreate(Sender: TObject);
 begin
-   self.dateBirth := IncYear(Now,-18);
+   self.birthday := IncYear(Now,-18);
    ClearFieldsInsert;
 end;
 
@@ -116,43 +101,43 @@ end;
 
 procedure TFrmRegistration.ClearFieldsInsert;
 begin
-   self.code := 0;
+   self.id := 0;
    self.txtName.Text := '';
    self.txtEmail.Text := '';
-   self.txtSalary.Text := '';
-   self.dtDateBirth.Date := self.dateBirth;
-   self.cmbGenre.ItemIndex := 0;
+   self.currSalary.Text := '';
+   self.cmbGender.ItemIndex := 0;
+   self.dtBirthday.Date := self.birthday;
    self.btnEdit.Enabled := false;
    self.btnDelete.Enabled := false;
    self.btnInsert.Enabled := true;
 end;
 
-procedure TFrmRegistration.dtDateBirthExit(Sender: TObject);
+procedure TFrmRegistration.dtBirthdayExit(Sender: TObject);
 begin
-   if dtDateBirth.Date > self.dateBirth then
+   if dtBirthday.Date > self.birthday then
    begin
-      dtDateBirth.SetFocus;
-      Application.MessageBox('Invalid Date of Birth.','Atention', 0);
+      dtBirthday.SetFocus;
+      Application.MessageBox('Invalid Birthday.','Atention', 0);
    end;
 end;
 
-procedure TFrmRegistration.Button1Click(Sender: TObject);
+procedure TFrmRegistration.btnCleanClick(Sender: TObject);
 begin
     self.ClearFieldsInsert;
 end;
 
-procedure TFrmRegistration.PreparedRegisterForEdition(code: integer; name,
-  email: string; salary:currency; dateBirth: TDateTime; genre: String);
+procedure TFrmRegistration.PreparedRegisterForEdition(id: integer; name,
+  email: string; salary:currency; birthday: TDateTime; gender: String);
 begin
-    self.code := code;
+    self.id := id;
     self.txtName.Text := name;
     self.txtEmail.Text := email;
-    self.txtSalary.Text := CurrTostr(salary);
-    self.dtDateBirth.Date := dateBirth;
-    if(genre = 'M') then
-      self.cmbGenre.ItemIndex := 0
+    self.currSalary.Text := CurrTostr(salary);
+    self.dtBirthday.Date := birthday;
+    if(gender = 'M') then
+      self.cmbGender.ItemIndex := 0
     else
-      self.cmbGenre.ItemIndex := 1;
+      self.cmbGender.ItemIndex := 1;
 
    self.btnEdit.Enabled := true;
    self.btnDelete.Enabled := true;
@@ -163,7 +148,7 @@ function TFrmRegistration.FieldTestEmpty:integer;
 begin
    if (self.txtName.Text <> '') then
       if (self.txtEmail.Text <> '') then
-        if (self.txtSalary.Text <> '') then
+        if (self.currSalary.Text <> '') then
           result := 1
         else
           result := 0
@@ -176,44 +161,45 @@ end;
 
 procedure TFrmRegistration.btnInsertClick(Sender: TObject);
 var
-   genre : char;
+   gender : char;
 begin
    if (FieldTestEmpty = 1) then
    begin
-      if self.cmbGenre.Text = 'Male' then
-         genre := 'M'
+      if self.cmbGender.Text = 'Male' then
+         gender := 'M'
       else
-         genre := 'F';
+         gender := 'F';
 
-      if TCadastro.Incluir_PessoaFisica(self.txtName.Text, self.txtEmail.Text, StrToCurr(self.txtSalary.Text), self.dtDateBirth.Date, genre) = 1 then
+      if TFacade.Insert_PhysicalPerson(self.txtName.Text, self.txtEmail.Text, StrToCurr(self.currSalary.Text), self.dtBirthday.Date, gender) = 1 then
       begin
-         Application.MessageBox('Successful insert.', 'Information', MB_OK+MB_ICONINFORMATION);
+         Application.MessageBox('Successfully inserted.', 'Information', MB_OK+MB_ICONINFORMATION);
          ClearFieldsInsert;
       end
       else
-         Application.MessageBox('Error insert.', 'Error', MB_OK+MB_ICONERROR);
+         Application.MessageBox('Error inserting.', 'Error', MB_OK+MB_ICONERROR);
    end
    else
      Application.MessageBox('Required Fields is empty.', 'Atention', MB_OK+MB_ICONWARNING);
 end;
 
+
 procedure TFrmRegistration.btnEditClick(Sender: TObject);
 var
-   genre : char;
+   gender : char;
 begin
    if (FieldTestEmpty = 1) then
    begin
-      if self.cmbGenre.Text = 'Male' then
-         genre := 'M'
+      if self.cmbGender.Text = 'Male' then
+         gender := 'M'
       else
-         genre := 'F';
+         gender := 'F';
 
-      if TCadastro.Editar_PessoaFisica(code, self.txtName.Text, self.txtEmail.Text, StrToCurr(self.txtSalary.Text), self.dtDateBirth.Date, genre) = 1 then
+      if TFacade.Edit_PhysicalPerson(id, self.txtName.Text, self.txtEmail.Text, StrToCurr(self.currSalary.Text), self.dtBirthday.Date, gender) = 1 then
       begin
-         Application.MessageBox('Successful edition.', 'Information', MB_OK+MB_ICONINFORMATION);
+         Application.MessageBox('Successfully edited.', 'Information', MB_OK+MB_ICONINFORMATION);
       end
       else
-         Application.MessageBox('Error edition.', 'Error', MB_OK+MB_ICONERROR);
+         Application.MessageBox('Error editing.', 'Error', MB_OK+MB_ICONERROR);
    end
    else
      Application.MessageBox('Required Fields is empty.', 'Atention', MB_OK+MB_ICONWARNING);
@@ -221,19 +207,19 @@ end;
 
 procedure TFrmRegistration.btnDeleteClick(Sender: TObject);
 begin
-   if TCadastro.Excluir_PessoaFisica(code) = 1 then
+   if TFacade.Delete_PhysicalPerson(id) = 1 then
    begin
-      Application.MessageBox('Successful delete.', 'Information', MB_OK+MB_ICONINFORMATION);
+      Application.MessageBox('Successfully deleted.', 'Information', MB_OK+MB_ICONINFORMATION);
       ClearFieldsInsert;
    end
    else
-      Application.MessageBox('Error delete.', 'Error', MB_OK+MB_ICONERROR);
+      Application.MessageBox('Error deleting.', 'Error', MB_OK+MB_ICONERROR);
 end;
 
 procedure TFrmRegistration.btnSearchClick(Sender: TObject);
 begin
    try
-      FrmSearch := TFrmSearch.create (Application);
+      FrmSearch := TFrmSearch.create(Application);
       self.Visible := false;
       FrmSearch.frmReg := self;
       FrmSearch.ShowModal;

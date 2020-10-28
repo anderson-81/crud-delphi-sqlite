@@ -14,27 +14,26 @@ type
     QRBand3: TQRBand;
     QRBand4: TQRBand;
     QRLabel1: TQRLabel;
-    QRLabel2: TQRLabel;
-    QRLabel3: TQRLabel;
-    QRLabel4: TQRLabel;
-    QRLabel5: TQRLabel;
-    QRLabel6: TQRLabel;
-    QRLabel7: TQRLabel;
-    QRDBText1: TQRDBText;
-    QRDBText2: TQRDBText;
-    QRDBText3: TQRDBText;
-    QRDBText4: TQRDBText;
-    QRDBText5: TQRDBText;
-    QRDBText6: TQRDBText;
+    qrlhID: TQRLabel;
+    qrlhNAME: TQRLabel;
+    qrlhEMAIL: TQRLabel;
+    qrlhSALARY: TQRLabel;
+    qrlhBIRTHDAY: TQRLabel;
+    qrlhGENDER: TQRLabel;
+    qrlID: TQRDBText;
+    qrlNAME: TQRDBText;
+    qrlEMAIL: TQRDBText;
+    qrlSALARY: TQRDBText;
+    qrlBIRTHDAY: TQRDBText;
+    qrlGENDER: TQRDBText;
     QRSysData1: TQRSysData;
     QRSysData2: TQRSysData;
     DataSource1: TDataSource;
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    procedure Buscar_PessoaFisica_PorNome(nome:string);
   public
     { Public declarations }
+    procedure CreateReport;
   end;
 
 var
@@ -44,13 +43,13 @@ implementation
 
 {$R *.dfm}
 
-procedure TFrmReport.Buscar_PessoaFisica_PorNome(nome:string);
+procedure TFrmReport.CreateReport;
 begin
    DM := TDM.Create(NIL);
    try
       DM.ZQuery.SQL.Clear;
-      DM.ZQuery.SQL.Add('SELECT * FROM PESSOA INNER JOIN PESSOAFISICA ON PESSOA.CODIGO = PESSOAFISICA.PESSOA_CODIGO WHERE PESSOA.NOME LIKE :NOME');
-      DM.ZQuery.ParamByName('NOME').AsString := nome + '%';
+      DM.ZQuery.SQL.Add('SELECT * FROM PERSON INNER JOIN PHYSICALPERSON ON PERSON.ID = PHYSICALPERSON.PERSON_ID WHERE PERSON.NAME LIKE :NAME');
+      DM.ZQuery.ParamByName('NAME').AsString := '%';
       DM.ZQuery.Open;
       if(DM.ZQuery.RecordCount < 1) then
       begin
@@ -69,12 +68,6 @@ begin
        FreeAndNil(DM);
        self.Close;
    end;
-end;
-
-
-procedure TFrmReport.FormCreate(Sender: TObject);
-begin
-   self.Buscar_PessoaFisica_PorNome(''); 
 end;
 
 end.

@@ -1,9 +1,9 @@
 object FrmReport: TFrmReport
-  Left = 419
-  Top = 197
+  Left = 630
+  Top = 174
   BorderStyle = bsToolWindow
   Caption = 'Registration System - Report'
-  ClientHeight = 301
+  ClientHeight = 312
   ClientWidth = 812
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,6 @@ object FrmReport: TFrmReport
   Position = poDesktopCenter
   Scaled = False
   WindowState = wsMaximized
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object QuickRep1: TQuickRep
@@ -201,10 +200,10 @@ object FrmReport: TFrmReport
         105.833333333333300000
         1899.708333333333000000)
       BandType = rbColumnHeader
-      object QRLabel2: TQRLabel
+      object qrlhID: TQRLabel
         Left = 16
         Top = 16
-        Width = 37
+        Width = 14
         Height = 19
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -215,12 +214,12 @@ object FrmReport: TFrmReport
           50.270833333333330000
           42.333333333333330000
           42.333333333333330000
-          97.895833333333330000)
+          37.041666666666670000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'CODE'
+        Caption = 'ID'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -232,7 +231,7 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel3: TQRLabel
+      object qrlhNAME: TQRLabel
         Left = 72
         Top = 16
         Width = 38
@@ -263,7 +262,7 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel4: TQRLabel
+      object qrlhEMAIL: TQRLabel
         Left = 304
         Top = 16
         Width = 41
@@ -294,7 +293,7 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel5: TQRLabel
+      object qrlhSALARY: TQRLabel
         Left = 472
         Top = 16
         Width = 53
@@ -325,10 +324,10 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel6: TQRLabel
+      object qrlhBIRTHDAY: TQRLabel
         Left = 536
         Top = 16
-        Width = 100
+        Width = 66
         Height = 19
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -339,12 +338,12 @@ object FrmReport: TFrmReport
           50.270833333333330000
           1418.166666666667000000
           42.333333333333330000
-          264.583333333333300000)
+          174.625000000000000000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'DATE OF BIRTH'
+        Caption = 'BIRTHDAY'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -356,10 +355,10 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRLabel7: TQRLabel
+      object qrlhGENDER: TQRLabel
         Left = 648
         Top = 16
-        Width = 45
+        Width = 54
         Height = 19
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -370,12 +369,12 @@ object FrmReport: TFrmReport
           50.270833333333330000
           1714.500000000000000000
           42.333333333333330000
-          119.062500000000000000)
+          142.875000000000000000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'GENRE'
+        Caption = 'GENDER'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -406,10 +405,10 @@ object FrmReport: TFrmReport
         105.833333333333300000
         1899.708333333333000000)
       BandType = rbDetail
-      object QRDBText1: TQRDBText
+      object qrlID: TQRDBText
         Left = 16
         Top = 8
-        Width = 39
+        Width = 11
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -420,19 +419,19 @@ object FrmReport: TFrmReport
           44.979166666666670000
           42.333333333333330000
           21.166666666666670000
-          103.187500000000000000)
+          29.104166666666670000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Color = clWhite
         DataSet = DM.ZQuery
-        DataField = 'codigo'
+        DataField = 'id'
         Transparent = False
         WordWrap = True
         FontSize = 10
       end
-      object QRDBText2: TQRDBText
+      object qrlNAME: TQRDBText
         Left = 72
         Top = 8
         Width = 33
@@ -453,12 +452,12 @@ object FrmReport: TFrmReport
         AutoStretch = False
         Color = clWhite
         DataSet = DM.ZQuery
-        DataField = 'nome'
+        DataField = 'name'
         Transparent = False
         WordWrap = True
         FontSize = 10
       end
-      object QRDBText3: TQRDBText
+      object qrlEMAIL: TQRDBText
         Left = 304
         Top = 8
         Width = 32
@@ -484,10 +483,10 @@ object FrmReport: TFrmReport
         WordWrap = True
         FontSize = 10
       end
-      object QRDBText4: TQRDBText
+      object qrlSALARY: TQRDBText
         Left = 480
         Top = 8
-        Width = 33
+        Width = 36
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -498,22 +497,22 @@ object FrmReport: TFrmReport
           44.979166666666670000
           1270.000000000000000000
           21.166666666666670000
-          87.312500000000000000)
+          95.250000000000000000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Color = clWhite
         DataSet = DM.ZQuery
-        DataField = 'renda'
+        DataField = 'salary'
         Transparent = False
         WordWrap = True
         FontSize = 10
       end
-      object QRDBText5: TQRDBText
+      object qrlBIRTHDAY: TQRDBText
         Left = 552
         Top = 8
-        Width = 56
+        Width = 47
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -524,22 +523,22 @@ object FrmReport: TFrmReport
           44.979166666666670000
           1460.500000000000000000
           21.166666666666670000
-          148.166666666666700000)
+          124.354166666666700000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Color = clWhite
         DataSet = DM.ZQuery
-        DataField = 'dataNasc'
+        DataField = 'birthday'
         Transparent = False
         WordWrap = True
         FontSize = 10
       end
-      object QRDBText6: TQRDBText
+      object qrlGENDER: TQRDBText
         Left = 656
         Top = 8
-        Width = 29
+        Width = 40
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -550,14 +549,14 @@ object FrmReport: TFrmReport
           44.979166666666670000
           1735.666666666667000000
           21.166666666666670000
-          76.729166666666670000)
+          105.833333333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Color = clWhite
         DataSet = DM.ZQuery
-        DataField = 'sexo'
+        DataField = 'gender'
         Transparent = False
         WordWrap = True
         FontSize = 10

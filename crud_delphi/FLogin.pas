@@ -4,14 +4,14 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FSplash, Cadastro;
+  Dialogs, StdCtrls, FSplash, Facade;
 
 type
   TFrmLogin = class(TForm)
-    txtLogin: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    txtPass: TEdit;
+    lblUsername: TLabel;
+    lblPassword: TLabel;
+    txtPassword: TEdit;
+    txtUsername: TEdit;
     btnLogin: TButton;
     btnCancel: TButton;
     procedure btnLoginClick(Sender: TObject);
@@ -22,7 +22,6 @@ type
   public
     { Public declarations }
   end;
-
 
 var
   FrmLogin: TFrmLogin;
@@ -35,20 +34,20 @@ uses FPrincipal;
 
 procedure TFrmLogin.ClearFields;
 begin
-   self.txtLogin.text := '';
-   self.txtPass.text := '';
+   self.txtUsername.text := '';
+   self.txtPassword.text := '';
 end;
 
 procedure TFrmLogin.btnLoginClick(Sender: TObject);
 begin
    if self.TestFields = 1 then
    begin
-      if TCadastro.Efetuar_Login(self.txtLogin.Text, self.txtPass.Text) = 1 then
+      if TFacade.Login(self.txtUsername.Text, self.txtPassword.Text) = 1 then
       begin
         try
           FrmPrincipal := TFrmPrincipal.create (Application);
           self.Visible := false;
-          FrmPrincipal.StatusBar1.Panels[0].Text := 'User logged in: ' + self.txtLogin.Text;
+          FrmPrincipal.StatusBar1.Panels[0].Text := 'User logged in: ' + self.txtUsername.Text;
           FrmPrincipal.StatusBar1.Panels[1].Text := DateTimeToStr(Now);
           ClearFields;
           FrmPrincipal.ShowModal;
@@ -74,7 +73,7 @@ end;
 
 function TFrmLogin.TestFields : integer;
 begin
-   if (self.txtLogin.Text <> '') AND (self.txtPass.Text <> '') then
+   if (self.txtUsername.Text <> '') AND (self.txtPassword.Text <> '') then
       result := 1
    else
       result := 0;

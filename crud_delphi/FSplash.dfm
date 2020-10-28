@@ -1,6 +1,6 @@
 object FrmSplash: TFrmSplash
-  Left = 462
-  Top = 216
+  Left = 376
+  Top = 210
   BorderStyle = bsNone
   Caption = 'frmSplash'
   ClientHeight = 348
@@ -14,7 +14,7 @@ object FrmSplash: TFrmSplash
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Image1: TImage
+  object image: TImage
     Left = 0
     Top = -8
     Width = 640
@@ -3472,7 +3472,7 @@ object FrmSplash: TFrmSplash
       626EDFFD6FE95FA065D8C5529BB3E9D3F5B6BF2FF873F1DA9877455DE9FE5F7B
       FBBFE01CB2C3B9410A7F5FF1ADAF7A8FA7E976BFCCE3954576BA2EDF2DCFFFD9}
   end
-  object Timer1: TTimer
+  object timer: TTimer
     Interval = 3000
     OnTimer = Timer1Timer
     Left = 344

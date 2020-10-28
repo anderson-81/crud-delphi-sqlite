@@ -20,7 +20,7 @@ object FrmPrincipal: TFrmPrincipal
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 486
+    Top = 485
     Width = 963
     Height = 19
     Panels = <

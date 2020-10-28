@@ -105,7 +105,7 @@ procedure TFrmPrincipal.Report1Click(Sender: TObject);
 begin
   try
      Application.CreateForm(TFrmReport, FrmReport);
-     FrmReport.ShowModal;
+     FrmReport.CreateReport;
   finally
      FrmReport.Release;
      FrmReport := nil;

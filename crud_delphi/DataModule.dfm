@@ -6,12 +6,12 @@ object DM: TDM
   Width = 210
   object ZConn: TZConnection
     ControlsCodePage = cGET_ACP
-    AutoEncodeStrings = False
+    AutoEncodeStrings = True
     TransactIsolationLevel = tiReadCommitted
-    Connected = True
     Port = 0
     Database = 'db.sqlite'
     Protocol = 'sqlite-3'
+    LibraryLocation = 'sqlite3.dll'
     Left = 24
     Top = 16
   end

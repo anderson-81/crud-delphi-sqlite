@@ -16,7 +16,7 @@ object FrmSearch: TFrmSearch
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 24
-  object Label1: TLabel
+  object lblData: TLabel
     Left = 16
     Top = 56
     Width = 133
@@ -43,7 +43,7 @@ object FrmSearch: TFrmSearch
     TabStop = True
     OnClick = rdForNameClick
   end
-  object rdForCode: TRadioButton
+  object rdForID: TRadioButton
     Tag = 1
     Left = 568
     Top = 16
@@ -51,7 +51,7 @@ object FrmSearch: TFrmSearch
     Height = 17
     Caption = 'For Code'
     TabOrder = 2
-    OnClick = rdForCodeClick
+    OnClick = rdForIDClick
   end
   object btnSearch: TButton
     Tag = 3
@@ -89,17 +89,15 @@ object FrmSearch: TFrmSearch
     Columns = <
       item
         Expanded = False
-        FieldName = 'CODIGO'
+        FieldName = 'ID'
         Title.Alignment = taCenter
-        Title.Caption = 'CODE'
         Title.Color = clSkyBlue
         Width = 100
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'NOME'
-        Title.Caption = 'NAME'
+        FieldName = 'NAME'
         Title.Color = clSkyBlue
         Width = 400
         Visible = True
@@ -111,23 +109,20 @@ object FrmSearch: TFrmSearch
       end
       item
         Expanded = False
-        FieldName = 'RENDA'
-        Title.Caption = 'SALARY'
+        FieldName = 'SALARY'
         Visible = False
       end
       item
         Expanded = False
-        FieldName = 'DATANASC'
+        FieldName = 'BIRTHDAY'
         Title.Alignment = taCenter
-        Title.Caption = 'DATE OF BIRTH'
         Title.Color = clSkyBlue
         Width = 200
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'SEXO'
-        Title.Caption = 'GENRE'
+        FieldName = 'GENDER'
         Visible = False
       end>
   end
