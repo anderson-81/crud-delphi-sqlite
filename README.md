@@ -1,5 +1,7 @@
 # crud-delphi-sqlite
 
+![GitHub](https://img.shields.io/github/license/anderson-81/crud-delphi-sqlite)![GitHub last commit](https://img.shields.io/github/last-commit/anderson-81/crud-delphi-sqlite)![GitHub language count](https://img.shields.io/github/languages/count/anderson-81/crud-delphi-sqlite)
+
 ### 1 - Description:
 - Registration system made in Delphi 7 with database. 
 
